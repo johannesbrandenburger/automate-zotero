@@ -9,15 +9,15 @@ async function main() {
     // config
     const limit = 2;
     let urls = [`https://api.zotero.org/users/${userId}/items/?format=bibtex&limit=${limit}&key=${apiKey}`];
-
+    
     // new: get url from clipboard (node!)
     const clipboardy = (await import('clipboardy')).default;
-    const zoteroFrontendUrl = clipboardy.readSync(); // https://www.zotero.org/johannesbrandenburger/items/YIKFHIES,9N898HM3/item-details
+    const zoteroFrontendUrl = clipboardy.readSync(); // https://www.zotero.org/johannesbrandenburger/items/YIKFHIES,9N898HM3/library
 
     if (zoteroFrontendUrl.includes("https://www.zotero.org")) {
 
         // extract item keys
-        const itemKeys = zoteroFrontendUrl.split('/items/')[1].split('/item-details')[0].split(',');
+        const itemKeys = zoteroFrontendUrl.split('/items/')[1].split('/library')[0].split(',');
         console.log(itemKeys);
 
         // build urls
