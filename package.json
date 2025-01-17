@@ -15,5 +15,8 @@
     "url": "https://github.com/johannesbrandenburger/automate-zotero/issues"
   },
   "homepage": "https://github.com/johannesbrandenburger/automate-zotero#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "clipboardy": "^4.0.0"
+  }
 }
