@@ -1,5 +1,13 @@
 async function main() {
 
+    // get zotero server from .env
+    const dotenv = (await import("dotenv")).default;
+    dotenv.config();
+    const zoteroServer = process.env.ZOTERO_SERVER;
+    if (!zoteroServer) {
+        throw new Error("ZOTERO_SERVER environment variable is not set");
+    }
+
     // get copied resource url
     const clipboardy = (await import("clipboardy")).default;
     const resourceIdentifier = clipboardy.readSync();
@@ -7,7 +15,7 @@ async function main() {
 
     // fetch the zotero translation server to get the zotero format
     const endpoint = isUrl ? "web" : "search";
-    const translationResponse = await fetch(`http://127.0.0.1:1969/${endpoint}`, {
+    const translationResponse = await fetch(`${zoteroServer}/${endpoint}`, {
         method: "POST",
         headers: {
             "Content-Type": "text/plain"
@@ -20,7 +28,7 @@ async function main() {
     // for each item in the zotero format, fetch the bibtex format
     let bibtexItems = [];
     for (const item of zoteroFormat) {
-        const exportResponse = await fetch(`http://127.0.0.1:1969/export?format=bibtex`, {
+        const exportResponse = await fetch(`${zoteroServer}/export?format=bibtex`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
