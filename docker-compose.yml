@@ -1,0 +1,11 @@
+services:
+  translation-server:
+    image: zotero/translation-server
+    container_name: translation-server
+    restart: always
+    ports:
+      - "1969:1969"
+    environment:
+      - NODE_ENV=production
+      - PORT=1969
+      - TRANSLATION_SERVER_URL=http://translation-server:1969
