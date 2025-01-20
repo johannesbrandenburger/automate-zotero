@@ -12,6 +12,7 @@ async function main() {
     const clipboardy = (await import("clipboardy")).default;
     const resourceIdentifier = clipboardy.readSync();
     const isUrl = resourceIdentifier.startsWith("http");
+    console.log(`requesting resource identifier: ${resourceIdentifier}`)
 
     // fetch the zotero translation server to get the zotero format
     const endpoint = isUrl ? "web" : "search";
@@ -20,7 +21,7 @@ async function main() {
         headers: {
             "Content-Type": "text/plain"
         },
-        body: resourceIdentifier
+        body: resourceIdentifier,
     });
     const zoteroFormat = await translationResponse.json();
     console.log(zoteroFormat);
